@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Navbar from './Navbar';
 
-function Home()  {
+function Main()  {
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -32,6 +32,7 @@ function Home()  {
           <li>Rehearse a movie scene</li>
           <li>Improve spectrum technology</li>
         </ul>
+        <LikeButton/>
           </Item>
       </Grid>
 
@@ -48,6 +49,7 @@ function Home()  {
           <li>Rehearse a movie scene</li>
           <li>Improve spectrum technology</li>
         </ul>
+        <LikeButton/>
           </Item>
       </Grid>
 
@@ -64,6 +66,7 @@ function Home()  {
           <li>Rehearse a movie scene</li>
           <li>Improve spectrum technology</li>
         </ul>
+        <LikeButton/>
           </Item>
       </Grid>
       <Grid xs={6}>
@@ -79,6 +82,7 @@ function Home()  {
           <li>Rehearse a movie scene</li>
           <li>Improve spectrum technology</li>
         </ul>
+        <LikeButton/>
           </Item>
       </Grid>
       
@@ -87,4 +91,4 @@ function Home()  {
       </>
     )
 }
-export default Home;
+export default Main;
