@@ -4,8 +4,22 @@ import LikeButton from './LikeButton';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Navbar from './Navbar';
+import axios from './config/axios';
+import { Get_Image_url } from './config/urls';
 
 function Main()  {
+
+  try{
+    const img = axios.get(Get_Image_url,{
+      Image:Image
+    }).then(res => {
+      console.log(res);
+    })
+  }catch(e){
+    console.log(e);
+  }
+
+
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -88,6 +102,7 @@ function Main()  {
       
         
       </Grid>
+      
       </>
     )
 }

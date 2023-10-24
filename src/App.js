@@ -6,6 +6,7 @@ import {
   Routes,
   Navigate,
   useLocation,
+  Redirect
 } from "react-router-dom";
 import SingUp from "./SingUp";
 import LogIn from "./login";
@@ -14,20 +15,20 @@ import Navbar from "./Navbar";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
 import Main from "./Main";
+import Img from "./ImageUpload";
 
 function App() {
   const { loggedIn } = useContext(AuthContext);
 
-  console.log(loggedIn);
-  
+  console.log(loggedIn);  
   return (
     <Routes>
-      {!loggedIn && (
-      <Route path="/" element={<Home />} />
-      )}
+
       {loggedIn && (
       <Route path="/" element={<Main />} />
       )}
+      
+      <Route path="/" element={<Home />} />
 
       {!loggedIn && (
       <Route path="/login" element={<LogIn />} />
@@ -38,7 +39,7 @@ function App() {
       )}
 
       
-      <Route path="/upload-image" element={<ImageUpload/>}  />
+      <Route path="/upload-image" element={<Img/>}  />
       
 
       <Route path="*" element={<Navigate to="/" replace />} />

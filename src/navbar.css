@@ -3,9 +3,11 @@
 	padding: 0;
 	list-style-type: none;
 }
+/*
 body{
 	background: #1E1F25;
 }
+*/
 ul.list-navbar{
 	display: flex;
     width: 45%;

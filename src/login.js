@@ -42,7 +42,7 @@ function LogIn() {
 				localStorage.setItem("token",JSON.stringify(res.data));
 				let tok = (res.data)
 				Cookie.set(tok)
-				//navigate("/upload-image")
+				navigate("/upload-image")
             })
 	
     } catch(e) {
@@ -53,7 +53,7 @@ function LogIn() {
 return (
 	<div className="App">
 	<header className="App-header">
-	<form onClick={() =>{handleSubmit()}}>
+	<form onClick={(e) =>{handleSubmit(e)}}>
 	
 	<h2> Geeks For Geeks </h2>
 	<h3> Sign-up Form </h3>

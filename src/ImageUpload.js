@@ -1,87 +1,40 @@
-import React, { useState } from "react";
+import React from "react"
+import { useState } from "react"
 import axios from "./config/axios";
-import { Get_Image_url, IMGUPLAOD_URL } from "./config/urls";
-import { useEffect } from "react";
-import "./imageUpload.css";
-import Navbar from "./Navbar";
-import { useContext } from "react";
-import { AuthContext } from "./context/authContext";
+import { IMGUPLAOD_URL } from './config/urls';
 
-function ImageUpload() {
-  const [image, setImage] = useState("");
-  const [allImage, setAllImage] = useState([]);
-  const { setLoggedIn } = useContext(AuthContext);
-
-  //localStorage.removeItem("token")
-  /*
-  const userData = localStorage.getItem("token");
-  const pharseData = JSON.parse(userData)
-  console.log(pharseData);
-  */
-
-  function covertToBase64(e) {
-    console.log(e);
-    var reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      console.log(reader.result); //base64encoded string
-      setImage(reader.result);
-    };
-    reader.onerror = (error) => {
-      console.log("Error: ", error);
-    };
+function Img() {
+  const [image, setImage] = useState({ preview: '', data: '' })
+  const [status, setStatus] = useState('')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    let formData = new FormData()
+    formData.append('file', image.data)
+    const response = await axios.post(IMGUPLAOD_URL, {
+      body: formData,
+    })
+    if (response) setStatus(response.statusText)
   }
-  useEffect(() => {
-    getImage();
-  }, []);
 
-  const uploadImage = async (req, res) => {
-    try {
-      const img = await axios
-        .post(IMGUPLAOD_URL, {
-          image: image,
-        })
-        .then((res) => {
-          console.log(res.data);
-        });
-      body: JSON.stringify({
-        base64: image,
-      });
-    } catch (e) {
-      console.log(e);
+  const handleFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
     }
-  };
-  function getImage() {
-    axios.get(Get_Image_url, {}).then(
-      (res) =>
-        (res.json = (data) => {
-          console.log(data);
-          setAllImage(data);
-        })
-    );
+    setImage(img)
   }
-
   return (
-    <>
-      <Navbar></Navbar>
-      <div className="auth-wrapper">
-        <div className="auth-inner" style={{ width: "auto" }}>
-          Let's Upload Image
-          <br />
-          <input accept="image/*" type="file" onChange={covertToBase64} />
-          <br />
-          {image == "" || image == null ? (
-            ""
-          ) : (
-            <img width={100} height={100} src={image} />
-          )}
-          <button onClick={uploadImage}>Upload</button>
-          {allImage.map((data) => {
-            return <img width={100} height={100} src={data.image} />;
-          })}
-        </div>
-      </div>
-    </>
-  );
+    <div className='App'>
+      <h1>Upload to server</h1>
+      {image.preview && <img src={image.preview} width='100' height='100' />}
+      <hr></hr>
+      <form onSubmit={handleSubmit}>
+        <input type='file' name='file' onChange={handleFileChange}></input>
+        <button type='submit'>Submit</button>
+      </form>
+      {status && <h4>{status}</h4>}
+    </div>
+  )
+
 }
-export default ImageUpload;
+export default Img
