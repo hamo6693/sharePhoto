@@ -6,104 +6,75 @@ import { styled } from '@mui/material/styles';
 import Navbar from './Navbar';
 import axios from './config/axios';
 import { Get_Image_url } from './config/urls';
+import { useSwiperSlide } from 'swiper/react';
+
 
 function Main()  {
+  const [post,setPost] = useState();
+  const [showLoading,setShowLoading] = useState(false);
+  const swiperSlide = useSwiperSlide();
 
-  try{
-    const img = axios.get(Get_Image_url,{
-      Image:Image
-    }).then(res => {
-      console.log(res);
-    })
-  }catch(e){
-    console.log(e);
+
+  useEffect(() => {
+    getImage()
+  },[]);
+
+  
+  const getImage = async () => {
+    setShowLoading(true)
+    try{
+      const img = axios.get(Get_Image_url,{
+        Image:Image
+      }).then(res => {
+        console.log(res);
+        setPost(res.data)
+        setShowLoading(false)
+      })
+    }catch(e){
+      console.log(e);
+      setShowLoading(false)
+    }
   }
 
+  
 
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      }));
+
+   
     
     return(
       <>
       <Navbar></Navbar>
-    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-      <Grid xs={6}>
-          <Item>
-            
-          <h1>Hedy Lamarr's Todos</h1>
-        <img
-          src="https://i.imgur.com/yXOvdOSs.jpg"
-          alt="Hedy Lamarr"
-          className="photo"
-        />
-        <ul>
-          <li>Invent new traffic lights</li>
-          <li>Rehearse a movie scene</li>
-          <li>Improve spectrum technology</li>
-        </ul>
-        <LikeButton/>
-          </Item>
-      </Grid>
-
-      <Grid xs={6}>
-          <Item>
-          <h1>Hedy Lamarr's Todos</h1>
-        <img
-          src="https://i.imgur.com/yXOvdOSs.jpg"
-          alt="Hedy Lamarr"
-          className="photo"
-        />
-        <ul>
-          <li>Invent new traffic lights</li>
-          <li>Rehearse a movie scene</li>
-          <li>Improve spectrum technology</li>
-        </ul>
-        <LikeButton/>
-          </Item>
-      </Grid>
-
-      <Grid xs={6}>
-          <Item>
-          <h1>Hedy Lamarr's Todos</h1>
-        <img
-          src="https://i.imgur.com/yXOvdOSs.jpg"
-          alt="Hedy Lamarr"
-          className="photo"
-        />
-        <ul>
-          <li>Invent new traffic lights</li>
-          <li>Rehearse a movie scene</li>
-          <li>Improve spectrum technology</li>
-        </ul>
-        <LikeButton/>
-          </Item>
-      </Grid>
-      <Grid xs={6}>
-          <Item>
-          <h1>Hedy Lamarr's Todos</h1>
-        <img
-          src="https://i.imgur.com/yXOvdOSs.jpg"
-          alt="Hedy Lamarr"
-          className="photo"
-        />
-        <ul>
-          <li>Invent new traffic lights</li>
-          <li>Rehearse a movie scene</li>
-          <li>Improve spectrum technology</li>
-        </ul>
-        <LikeButton/>
-          </Item>
-      </Grid>
+      {showLoading 
+      ?
+      setShowLoading(false)
+      :post &&
+      <Grid container  >
       
-        
-      </Grid>
+                   
+          {post.data.map(img => {
+            return(
+              <img key={Math.random()} src={img.image}
+              alt="Hedy Lamarry"
+              className="photo"
+            />
+
+            )
+          
+          })
+          
+        }
       
+
+
+      
+     
+      </Grid>  
+      }
+    
+    
       </>
     )
+    
 }
+
 export default Main;

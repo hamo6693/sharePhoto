@@ -6,6 +6,7 @@ import { IMGUPLAOD_URL } from './config/urls';
 function Img() {
   const [image, setImage] = useState({ preview: '', data: '' })
   const [status, setStatus] = useState('')
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
     let formData = new FormData()
@@ -13,6 +14,7 @@ function Img() {
     const response = await axios.post(IMGUPLAOD_URL, {
       body: formData,
     })
+    console.log(image);
     if (response) setStatus(response.statusText)
   }
 
