@@ -40,6 +40,7 @@ function Img() {
       {status && <h4>تم ارسال الصورة</h4>}
     </div>
   )
+  
 
 }
 export default Img

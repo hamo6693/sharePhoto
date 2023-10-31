@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Grid, Link } from '@mui/material';
-import LikeButton from './components/LikeButton';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
+import { Grid } from '@mui/material';
 import Navbar from './components/Navbar';
 import axios from './config/axios';
 import { Get_Image_url } from './config/urls';
-import { useSwiperSlide } from 'swiper/react';
 
 
 function Main()  {
   const [post,setPost] = useState();
   const [showLoading,setShowLoading] = useState(false);
-  const swiperSlide = useSwiperSlide();
 
 
   useEffect(() => {
