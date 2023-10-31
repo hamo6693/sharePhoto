@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Grid, Link } from '@mui/material';
-import LikeButton from './LikeButton';
+import LikeButton from './components/LikeButton';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import Navbar from './Navbar';
+import Navbar from './components/Navbar';
 
 function Home()  {
     const Item = styled(Paper)(({ theme }) => ({

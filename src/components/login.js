@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
-import './singup.css';
-import axios from "./config/axios";
-import { LOGIN_URL } from './config/urls';
+import '../styles/singup.css';
+import axios from "../config/axios";
+import { LOGIN_URL } from '../config/urls';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import { useContext } from "react";
-import { AuthContext } from "./context/authContext";
+import { AuthContext } from "../context/authContext";
 import { Cookie } from '@mui/icons-material';
 
 function LogIn() {

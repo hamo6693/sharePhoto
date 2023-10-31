@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./App.css";
+import "../styles/App.css";
 
 function LikeButton() {
    const [likes, setLikes] = useState(0);

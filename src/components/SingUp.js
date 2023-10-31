@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
-import './singup.css';
-import axios from "./config/axios";
-import { REGISTER_URL } from './config/urls';
+import '../styles/singup.css';
+import axios from "../config/axios";
+import { REGISTER_URL } from '../config/urls';
 import { useNavigate } from 'react-router-dom';
 
 
 
-function SingUp() {
+function REGISTER() {
 	const [name , setName] = useState('');
 	const [email , setEmail] = useState('');
 	const [password , setPassword] = useState('');
@@ -94,4 +94,4 @@ return (
 );
 }
 
-export default SingUp;
+export default REGISTER;

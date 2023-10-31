@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
-import axios from "./config/axios";
-import { IMGUPLAOD_URL } from './config/urls';
+import axios from "../config/axios";
+import { IMGUPLAOD_URL } from '../config/urls';
 import Navbar from "./Navbar";
 
 function Img() {
@@ -10,12 +10,13 @@ function Img() {
   
   const handleSubmit = async (e) => {
     e.preventDefault()
-    //let formData = new FormData()
-    //formData.append('file', image.data)
     const response = await axios.post(IMGUPLAOD_URL, {
       base64: image.preview,
+      
     })
+    
     console.log(image);
+    console.log(response);
     if (response) setStatus(response.statusText)
   }
 

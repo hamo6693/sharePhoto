@@ -1,5 +1,5 @@
 import logo from "./logo.svg";
-import "./App.css";
+import "./styles/App.css";
 import Home from "./Home";
 import {
   Route,
@@ -8,14 +8,14 @@ import {
   useLocation,
   Redirect
 } from "react-router-dom";
-import SingUp from "./SingUp";
-import LogIn from "./login";
-import ImageUpload from "./ImageUpload";
-import Navbar from "./Navbar";
+import LogIn from "./components/login";
+//import ImageUpload from "./components/ImageUpload";
+import Navbar from "./components/Navbar";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
 import Main from "./Main";
-import Img from "./ImageUpload";
+import Img from "./components/ImageUpload";
+import REGISTER from "./components/SingUp";
 
 function App() {
   const { loggedIn } = useContext(AuthContext);
@@ -27,19 +27,19 @@ function App() {
       {loggedIn && (
       <Route path="/" element={<Main />} />
       )}
-      
+
       <Route path="/" element={<Home />} />
 
       {!loggedIn && (
       <Route path="/login" element={<LogIn />} />
       )}
-      
+
       {!loggedIn && (
-      <Route path="/singup" element={<SingUp />} />
+      <Route path="/singup" element={<REGISTER />} />
       )}
 
       
-      <Route path="/upload-image" element={<Img/>}  />
+      <Route path="/upload-image" element={<Img />}  />
       
 
       <Route path="*" element={<Navigate to="/" replace />} />
