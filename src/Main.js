@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import Navbar from './components/Navbar';
 import axios from './config/axios';
 import { Get_Image_url } from './config/urls';
+import { AuthContext } from './context/authContext';
 
 
 function Main()  {
   const [post,setPost] = useState();
   const [showLoading,setShowLoading] = useState(false);
+  const {jwt} = useContext(AuthContext)
 
 
   useEffect(() => {
@@ -19,6 +21,9 @@ function Main()  {
     setShowLoading(true)
     try{
       const img = axios.get(Get_Image_url,{
+        headers:{
+          authorization:jwt
+        },
         Image:Image
       }).then(res => {
         console.log(res);

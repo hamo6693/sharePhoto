@@ -1,24 +1,19 @@
 import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
 import '../styles/singup.css';
 import axios from "../config/axios";
 import { LOGIN_URL } from '../config/urls';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import Navbar from './Navbar';
+import {  useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-import { Cookie } from '@mui/icons-material';
 
 function LogIn() {
 	
 	const [email , setEmail] = useState('');
 	const [password , setPassword] = useState('');
-	//const {setAuth} = useAuth();
 
 	const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
-	const {setLoggedIn} = useContext(AuthContext)
+	const {setLoggedIn,setJwt} = useContext(AuthContext)
 
 	
 	const handleEmailChange =(e)=>{
@@ -37,11 +32,12 @@ function LogIn() {
 				password:password,
 
 			}).then(res=>{
-                //console.log(res.data);
+                console.log(res.data);
 				setLoggedIn(true)
 				localStorage.setItem("token",JSON.stringify(res.data));
-				let tok = (res.data)
-				Cookie.set(tok)
+				//let tok = (res.data)
+				//Cookie.set(tok)
+				setJwt(res.data)
 				navigate("/upload-image")
             })
 	

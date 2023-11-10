@@ -1,16 +1,14 @@
-import logo from "./logo.svg";
 import "./styles/App.css";
 import Home from "./Home";
 import {
   Route,
   Routes,
   Navigate,
-  useLocation,
   Redirect
+  
 } from "react-router-dom";
 import LogIn from "./components/login";
 //import ImageUpload from "./components/ImageUpload";
-import Navbar from "./components/Navbar";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
 import Main from "./Main";
@@ -46,5 +44,6 @@ function App() {
     </Routes>
   );
 }
+//<Route path="/upload-image" element={loggedIn ? <Navigate to="/" /> : <Img />}/>
 
 export default App;

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import '../styles/singup.css';
 import axios from "../config/axios";
 import { REGISTER_URL } from '../config/urls';
@@ -34,11 +34,11 @@ function REGISTER() {
 	
 	const handleSubmit= async (e)=>{
 	
-		if(password!=confPassword){
+		if(password!==confPassword){
 			alert("password Not Matc");
 		}
 		try{
-		const user = await axios.post(REGISTER_URL,{
+		 await axios.post(REGISTER_URL,{
 				name:name,
 				email:email,
 				password:password,
