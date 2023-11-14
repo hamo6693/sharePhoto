@@ -4,7 +4,6 @@ import {
   Route,
   Routes,
   Navigate,
-  Redirect
   
 } from "react-router-dom";
 import LogIn from "./components/login";
@@ -40,10 +39,13 @@ function App() {
       <Route path="/upload-image" element={<Img />}  />
       
 
+      
+
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
 //<Route path="/upload-image" element={loggedIn ? <Navigate to="/" /> : <Img />}/>
+//<Route path="/upload-image/:id" element={<Img />}  />
 
 export default App;

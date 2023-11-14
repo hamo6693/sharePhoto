@@ -32,7 +32,7 @@ function LogIn() {
 				password:password,
 
 			}).then(res=>{
-                console.log(res.data);
+                //console.log(res.data);
 				setLoggedIn(true)
 				localStorage.setItem("token",JSON.stringify(res.data));
 				//let tok = (res.data)

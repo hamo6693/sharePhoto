@@ -1,28 +1,41 @@
 import React, { useContext } from "react";
 import { useState } from "react";
+import { Grid } from "@mui/material";
 import axios from "../config/axios";
 import { IMGUPLAOD_URL } from "../config/urls";
 import Navbar from "./Navbar";
 import { AuthContext } from "../context/authContext";
-//import { useEffect } from "react";
+import { Get_Image_url } from "../config/urls";
+import { useEffect } from "react";
 
 function Img() {
   const [image, setImage] = useState({ preview: "", data: "" });
   const [status, setStatus] = useState("");
   //const {setLoggedIn,setJwt} = useContext(AuthContext)
   const { jwt } = useContext(AuthContext);
+  const id = window.location.pathname.split("/")[1];
+
+  //
+  const [post, setPost] = useState();
+  const [showLoading, setShowLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     try {
+      const ke = localStorage.getItem("token").slice("16","201");
+      
+
       e.preventDefault();
 
       const response = await axios
-        .post(IMGUPLAOD_URL, setImage, {
-          headers: {
-            authorization: jwt,
-          },
-          base64: image.preview,
-        })
+        .post(
+          IMGUPLAOD_URL,
+          { base64: image.preview },
+          {
+            headers: {
+              authorization: ke,
+            },
+          }
+        )
         .then((res) => {
           console.log(res.data);
           //setLoggedIn(true)
@@ -44,6 +57,34 @@ function Img() {
 
     setImage(img);
   };
+
+  useEffect(() => {
+    getImage();
+  }, []);
+
+  const getImage = async () => {
+    setShowLoading(true);
+    try {
+      const ke = localStorage.getItem("token").slice("16","201")
+
+      const img = axios
+        .get(Get_Image_url + "/" + id, {
+          headers: {
+            authorization: ke,
+          },
+          //image:image
+        })
+        .then((res) => {
+          console.log(res);
+          setPost(res.data);
+          setShowLoading(false);
+        });
+    } catch (e) {
+      console.log(e);
+      setShowLoading(false);
+    }
+  };
+
   return (
     <div className="App">
       <Navbar></Navbar>
@@ -60,6 +101,23 @@ function Img() {
         <button type="submit">Submit</button>
       </form>
       {status && <h4>تم ارسال الصورة</h4>}
+      <hr />
+      {showLoading
+        ? setShowLoading(false)
+        : post && (
+            <Grid container>
+              {post.data.map((img) => {
+                return (
+                  <img
+                    key={Math.random()}
+                    src={img.image}
+                    alt="Hedy Lamarry"
+                    className="photo"
+                  />
+                );
+              })}
+            </Grid>
+          )}
     </div>
   );
 }

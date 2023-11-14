@@ -14,7 +14,7 @@ function Main()  {
 
   useEffect(() => {
     getImage()
-  },[]);
+  },[])
 
   
   const getImage = async () => {
