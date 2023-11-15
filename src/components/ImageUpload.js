@@ -19,10 +19,15 @@ function Img() {
   const [post, setPost] = useState();
   const [showLoading, setShowLoading] = useState(false);
 
+  
+
+ 
+
   const handleSubmit = async (e) => {
     try {
-      const ke = localStorage.getItem("token").slice("16","201");
-      
+      const tokenValue = localStorage.getItem("token")
+      let token = JSON.parse(tokenValue)
+      console.log(token);
 
       e.preventDefault();
 
@@ -32,7 +37,7 @@ function Img() {
           { base64: image.preview },
           {
             headers: {
-              authorization: ke,
+              authorization: token,
             },
           }
         )
@@ -65,12 +70,15 @@ function Img() {
   const getImage = async () => {
     setShowLoading(true);
     try {
-      const ke = localStorage.getItem("token").slice("16","201")
+      const tokenValue = localStorage.getItem("token")
+      let token = JSON.parse(tokenValue)
+      console.log(token);
+
 
       const img = axios
         .get(Get_Image_url + "/" + id, {
           headers: {
-            authorization: ke,
+            authorization:token,
           },
           //image:image
         })

@@ -13,8 +13,7 @@ const AuthContextProvider = (props) => {
     },[])
     
     const getAuthentcated = async () => {
-        const getToken = localStorage.getItem("token",JSON.stringify());
-        const token = getToken.slice(16,201)
+        const token = localStorage.getItem("token",JSON.stringify());
         console.log(token);
         if(token) {
             setJwt(token)
