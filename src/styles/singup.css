@@ -1,9 +1,11 @@
 .App {
     text-align: center;
+    position: relative;
     }
     form {
     border:2px solid green;
     padding: 30px;
+    margin-bottom: 40px;
     }
     img{
     height: 120px;
@@ -24,3 +26,13 @@
     color: black;
     }
     
+.title{
+    position: relative;
+    right:8%;
+    bottom: 24px;
+}
+.input-edit{
+    position: relative;
+    bottom: 100px;
+    right: 22%;
+}

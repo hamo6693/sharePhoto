@@ -9,6 +9,8 @@ import { AuthContext } from './context/authContext';
 function Main()  {
   const [post,setPost] = useState();
   const [showLoading,setShowLoading] = useState(false);
+  const [title, setTitle] = useState("");
+
   /*const {jwt} = useContext(AuthContext)*/
 
 
@@ -52,14 +54,16 @@ function Main()  {
       :post &&
       <Grid container  >
       
-                   
           {post.data.map(img => {
             return(
+              <>
+            
+
               <img key={Math.random()} src={img.image}
-              alt="Hedy Lamarry"
               className="photo"
             />
-
+            <div className='title'>{img.title}</div>
+            </>
             )
           
           })
