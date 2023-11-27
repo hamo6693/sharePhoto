@@ -161,6 +161,7 @@ function Img() {
                         <Link to={`/edit-title/${img._id}`} className="btn btn-primary" >تعديل العنوان</Link>
                       </CardActions>
                     </Card>
+                    
                   </>
                 );
               })}
