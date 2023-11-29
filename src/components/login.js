@@ -1,14 +1,19 @@
-import React, { useState } from "react";
-import "../styles/singup.css";
+import React, { useEffect, useState } from "react";
+import "../styles/login.css"
 import axios from "../config/axios";
 import { LOGIN_URL } from "../config/urls";
 import { useNavigate } from "react-router-dom";
+
+
+
 
 function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+   
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -20,15 +25,15 @@ function LogIn() {
 
   const handleSubmit = async (e) => {
     try {
-      await axios
-        .post(LOGIN_URL, {
+      await axios.post(LOGIN_URL, {
           email: email,
           password: password,
         })
         .then((res) => {
+        localStorage.setItem("token", JSON.stringify(res.data.accessToken));
           console.log(res.data);
-          localStorage.setItem("token", JSON.stringify(res.data.accessToken));
           navigate("/upload-image");
+          
         });
     } catch (e) {
       console.log(e);
@@ -37,11 +42,8 @@ function LogIn() {
   return (
     <div className="App">
       <header className="App-header">
-        <form
-          onClick={(e) => {
-            handleSubmit(e);
-          }}
-        >
+      <div className="mycard">
+        <div className="card auth-card input-field">
           <h2> Geeks For Geeks </h2>
           <h3> Sign-up Form </h3>
 
@@ -68,9 +70,11 @@ function LogIn() {
             }}
           />
           <br />
-          <input type="submit" value="Submit" />
-        </form>
+          <input onClick={(e) => {handleSubmit(e)}} type="submit" value="تسجيل الدخول"/>
+        </div>
+        </div>
       </header>
+      
     </div>
   );
 }

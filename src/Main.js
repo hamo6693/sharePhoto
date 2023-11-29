@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Card, CardMedia, Grid,CardActions,Typography,CardContent } from "@mui/material";
 import Navbar from "./components/Navbar";
 import axios from "./config/axios";
-import { Get_Image_url, LIKE_URL } from "./config/urls";
+import { Get_Image_url, LIKE_URL, Like } from "./config/urls";
 import { AuthContext } from "./context/authContext";
 import { FactCheck,HeartBroken } from "@mui/icons-material";
 import { Link, useParams } from "react-router-dom";
@@ -17,7 +17,6 @@ function Main() {
   const [likes,setLikes] = useState(0)
   const [liked,setLiked] =useState(false)
   const id = useParams()
-  const [data,setData] = useState([])
 
   
   /*const {jwt} = useContext(AuthContext)*/
@@ -42,7 +41,7 @@ function Main() {
           Image: Image,
         })
         .then((res) => {
-          console.log(res.data.data);
+          console.log(res.data);
           setPost(res.data);
           setShowLoading(false);
         });
@@ -53,10 +52,10 @@ function Main() {
   };
 
 
- const likePhoto = () => {
-  console.log("d");
+ function likePhoto  ()  {
+  
     if (liked) {
-      setLikes(likes - 1);
+      setLikes(likes - 1,);
       setLiked(false);
     } else {
       setLikes(likes + 1);
@@ -64,30 +63,36 @@ function Main() {
     }
   }
 
+  
+
+
   const likePost = (id)=>{
-    fetch('/like',{
-        method:"put",
-        headers:{
-            "Content-Type":"application/json",
-            "Authorization":"Bearer "+localStorage.getItem("jwt")
+    const tokenValue = localStorage.getItem("token");
+    let token = JSON.parse(tokenValue);
+    console.log(token);
+    try{
+      axios.put(Like  + "/" + id ,{user:id},{
+        headers: {
+          authorization: token,
         },
+        /*
         body:JSON.stringify({
-            postId:id
-        })
-    }).then(res=>res.json())
-    .then(result=>{
-             //   console.log(result)
-      const newData = data.map(item=>{
-          if(item._id==result._id){
-              return result
-          }else{
-              return item
-          }
-      })
-      setData(newData)
-    }).catch(err=>{
-        console.log(err)
+          user:id
+      }),
+      */
+        
+    }).then(res => {
+     
+      //رمز الصور
+      console.log(id)
+    
+
+      console.log(res);
     })
+    } catch(e){
+      console.log(e);
+    }
+     
 }
 
 
@@ -106,6 +111,7 @@ function Main() {
                         sx={{ height: 140 }}
                         image={img.image}
                         title={img.title}
+                      
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
@@ -115,11 +121,24 @@ function Main() {
                       <CardActions>
                       </CardActions>
                       <div style={{display:"flex"}}>
-                      <Button onClick={()=>likePhoto()} >
+                      <Button 
+                      
+                      onClick={()=>likePost(img._id)}
+                      
+                      >
+                        {post.data.map((img) => {
+                          return(
+                            <>
+                            {img.likes._id}
+                          </>
+                          )
+                        })}
                     <ThumbUpIcon/>
+                    {img.likes.length + " likes"}
+                   
                     </Button>
-                    <h3>{img.likes.length} likes</h3>
                     </div>
+                    
                     </Card>
                     
                    
@@ -133,4 +152,5 @@ function Main() {
   );
 }
 
-export default Main;
+
+export default Main
