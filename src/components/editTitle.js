@@ -6,7 +6,7 @@ import { EDIT_TITLE, IMGUPLAOD_URL } from "../config/urls";
 import Navbar from "./Navbar";
 import { AuthContext } from "../context/authContext";
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -15,7 +15,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
+
 function EditTitle() {
+  
   const [status, setStatus] = useState("");
   //تعديل العنوان
   const [title, setTitle] = useState("");
@@ -85,6 +87,19 @@ function EditTitle() {
     }
   };
 
+  const handlerDelete = async(req,res) => {
+    const tokenValue = localStorage.getItem("token");
+      let token = JSON.parse(tokenValue);
+    const deleteImg = axios.delete(IMGUPLAOD_URL + "/" + id,{
+      headers: {
+        authorization: token,
+      },
+      id:id
+    }).then(res => {
+      console.log("تم الحذف");
+    })
+  }
+
   return (
     <>
       <Navbar></Navbar>
@@ -105,6 +120,7 @@ function EditTitle() {
               onChange={handleTitleChange}
             ></input>
             <button type="submit">تعديل</button>
+            <button type="submit" onClick={() => {handlerDelete()}}>حذف</button>
           </form>
         </CardActions>
       </Card>

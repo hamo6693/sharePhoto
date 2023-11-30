@@ -4,6 +4,7 @@ import '../styles/singup.css';
 import axios from "../config/axios";
 import { REGISTER_URL } from '../config/urls';
 import { useNavigate } from 'react-router-dom';
+import { Button, Input } from '@mui/material';
 
 
 
@@ -68,26 +69,26 @@ return (
 		<label >
 		Name:
 		</label><br/>
-		<input type="text" value={name} required onChange={(e) => {handleChange(e)}} /><br/>
+		<Input type="text" value={name} required onChange={(e) => {handleChange(e)}} /><br/>
 		
 		<label>
 		Email:
 		</label><br/>
-		<input type="email" value={email} required onChange={(e) => {handleEmailChange(e)}} /><br/>
+		<Input type="email" value={email} required onChange={(e) => {handleEmailChange(e)}} /><br/>
 		
 		<label>
 		Password:
 		</label><br/>
-		<input type="password" value={password} required onChange={(e) => {handlePasswordChange(e)}} />
+		<Input type="password" value={password} required onChange={(e) => {handlePasswordChange(e)}} />
 			
 		<label>
             <br/>
 		Confirm Password:
 		</label>
         <br/>
-		<input type="password" value={confPassword} required onChange={(e) => {handleConfPasswordChange(e)}} />
+		<Input type="password" value={confPassword} required onChange={(e) => {handleConfPasswordChange(e)}} />
         <br/>
-		<input type="submit" value="Submit"/>
+		<Button type="submit" value="Submit">نسجيل الحساب</Button>
 	</form>
 	</header>
 	</div>

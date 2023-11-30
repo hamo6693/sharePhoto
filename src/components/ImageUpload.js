@@ -158,7 +158,7 @@ function Img() {
                         </Typography>
                       </CardContent>
                       <CardActions>
-                        <Link to={`/edit-title/${img._id}`} className="btn btn-primary" >تعديل العنوان</Link>
+                        <Link to={`/edit-title/${img._id}`} style={{textDecoration:"none"}} >عرض المنشور</Link>
                       </CardActions>
                     </Card>
                     

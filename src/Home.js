@@ -1,90 +1,100 @@
-import { useEffect, useState } from 'react';
-import { Grid, Link } from '@mui/material';
-import LikeButton from './components/LikeButton';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-import Navbar from './components/Navbar';
+import { useContext, useEffect, useState } from "react";
+import { Card, CardMedia, Grid,CardActions,Typography,CardContent } from "@mui/material";
+import Navbar from "./components/Navbar";
+import axios from "./config/axios";
+import { Get_Image_url, LIKE_URL, Like } from "./config/urls";
+import { AuthContext } from "./context/authContext";
+import { FactCheck,HeartBroken } from "@mui/icons-material";
+import { Link, useParams } from "react-router-dom";
+import Button from '@mui/material/Button';
 
-function Home()  {
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      }));
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+
+function Home() {
+  const [post, setPost] = useState();
+  const [showLoading, setShowLoading] = useState(false);
+  const [title, setTitle] = useState("");;
+  const [likes,setLikes] = useState(0)
+  const [liked,setLiked] =useState(false)
+  const id = useParams()
+
+  
+  /*const {jwt} = useContext(AuthContext)*/
+
+  useEffect(() => {
+    getImage();
+  }, []);
+
+  const getImage = async () => {
+    setShowLoading(true);
+    try {
+      
     
-    return(
-      <>
-      <Navbar></Navbar>
-    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-      <Grid xs={6}>
-          <Item>
-            
-          <h1>Hedy Lamarr's Todos</h1>
-        <img
-          src="https://i.imgur.com/yXOvdOSs.jpg"
-          alt="Hedy Lamarr"
-          className="photo"
-        />
-        <ul>
-          <li>Invent new traffic lights</li>
-          <li>Rehearse a movie scene</li>
-          <li>Improve spectrum technology</li>
-        </ul>
-          </Item>
-      </Grid>
 
-      <Grid xs={6}>
-          <Item>
-          <h1>Hedy Lamarr's Todos</h1>
-        <img
-          src="https://i.imgur.com/yXOvdOSs.jpg"
-          alt="Hedy Lamarr"
-          className="photo"
-        />
-        <ul>
-          <li>Invent new traffic lights</li>
-          <li>Rehearse a movie scene</li>
-          <li>Improve spectrum technology</li>
-        </ul>
-          </Item>
-      </Grid>
-
-      <Grid xs={6}>
-          <Item>
-          <h1>Hedy Lamarr's Todos</h1>
-        <img
-          src="https://i.imgur.com/yXOvdOSs.jpg"
-          alt="Hedy Lamarr"
-          className="photo"
-        />
-        <ul>
-          <li>Invent new traffic lights</li>
-          <li>Rehearse a movie scene</li>
-          <li>Improve spectrum technology</li>
-        </ul>
-          </Item>
-      </Grid>
-      <Grid xs={6}>
-          <Item>
-          <h1>Hedy Lamarr's Todos</h1>
-        <img
-          src="https://i.imgur.com/yXOvdOSs.jpg"
-          alt="Hedy Lamarr"
-          className="photo"
-        />
-        <ul>
-          <li>Invent new traffic lights</li>
-          <li>Rehearse a movie scene</li>
-          <li>Improve spectrum technology</li>
-        </ul>
-          </Item>
-      </Grid>
+      const img = axios.get(Get_Image_url, {
+          
       
         
-      </Grid>
-      </>
-    )
+          Image: Image,
+        })
+        .then((res) => {
+          console.log(res.data);
+          setPost(res.data);
+          setShowLoading(false);
+        });
+    } catch (e) {
+      console.log(e);
+      setShowLoading(false);
+    }
+  };
+
+
+ 
+
+  
+
+
+ 
+
+
+  return (
+    <>
+      <Navbar></Navbar>
+      {showLoading
+        ? setShowLoading(false)
+        : post && (
+            <Grid container>
+              {post.data.map((img) => {
+                return (
+                  <>
+                      <Card sx={{ width: 345 }}>
+                      <CardMedia
+                        sx={{ height: 140 }}
+                        image={img.image}
+                        title={img.title}
+                      
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                          {img.title}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                      </CardActions>
+                     
+                    
+                    </Card>
+                    
+                   
+                    
+                  </>
+                );
+              })}
+            </Grid>
+          )}
+    </>
+  );
 }
-export default Home;
+
+
+export default Home
