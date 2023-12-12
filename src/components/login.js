@@ -3,7 +3,8 @@ import "../styles/login.css"
 import axios from "../config/axios";
 import { LOGIN_URL } from "../config/urls";
 import { useNavigate } from "react-router-dom";
-
+import { Formik } from "formik";
+import * as yup from "yup";
 
 
 
@@ -12,6 +13,21 @@ function LogIn() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  const validationSchema = yup.object({
+    email: yup
+      .string()
+      .nullable()
+      .email(" البريد الالكتروني مطلوب")
+      .required("البريد الالكتروني مطلوب"),
+
+    password: yup
+      .string()
+      .nullable()
+      .min(5, "less 5 letter")
+      .required("يجب ادخال كلمة المرور"),
+
+  });
 
    
 
@@ -23,12 +39,12 @@ function LogIn() {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  
+
+  const onSubmit = async (values) => {
+    const loginForm = {email,password}
     try {
-      await axios.post(LOGIN_URL, {
-          email: email,
-          password: password,
-        })
+      await axios.post(LOGIN_URL,values)
         .then((res) => {
         localStorage.setItem("token", JSON.stringify(res.data.accessToken));
           console.log(res.data);
@@ -40,42 +56,66 @@ function LogIn() {
     }
   };
   return (
-    <div className="App">
-      <header className="App-header">
-      <div className="mycard">
-        <div className="card auth-card input-field">
-          <h2> Geeks For Geeks </h2>
-          <h3> Sign-up Form </h3>
+    <Formik
+    initialValues={{
+      name: null,
+      email: null,
+      password: null,
+      confPassword: null,
+    }}
+    validationSchema={validationSchema}
+    onSubmit={(values, { resetForm }) => {
+      console.log(values);
+      onSubmit(values);
+      resetForm({ values: "" });
+    }}
+  >
+       {(formikProps) => (
+     <div class="container">
+     <div class="text">تسجيل الدخول</div>
+     <form onSubmit={formikProps.handleSubmit}>
+       <div className="form-row">
+         <div class="input-data">
+           <input
+             name="email"
+             type="email"
+             value={formikProps.values.email}
+             onChange={formikProps.handleChange}
+           />
+           <div class="underline"></div>
+           <label for="">Email</label>
+           <div className="worring">
+             {formikProps.touched.email && formikProps.errors.email}
+           </div>
+         </div>
 
-          <label>Email:</label>
-          <br />
-          <input
-            type="email"
-            value={email}
-            required
-            onChange={(e) => {
-              handleEmailChange(e);
-            }}
-          />
-          <br />
+         <div class="input-data">
+           <input
+             name="password"
+             type="password"
+             value={formikProps.values.password}
+             onChange={formikProps.handleChange}
+           />
+           <div class="underline"></div>
+           <label for="">password</label>
+           <div className="worring">
+             {formikProps.touched.password && formikProps.errors.password}
+           </div>
+         </div>
 
-          <label>Password:</label>
-          <br />
-          <input
-            type="password"
-            value={password}
-            required
-            onChange={(e) => {
-              handlePasswordChange(e);
-            }}
-          />
-          <br />
-          <input onClick={(e) => {handleSubmit(e)}} type="submit" value="تسجيل الدخول"/>
-        </div>
-        </div>
-      </header>
-      
-    </div>
+        
+       </div>
+       <div class="form-row submit-btn">
+         <div class="input-data">
+           <div class="inner"></div>
+           <input type="submit" value="تسجيل الدخول" />
+         </div>
+       </div>
+     </form>
+   </div>
+    
+       )}
+    </Formik>
   );
 }
 

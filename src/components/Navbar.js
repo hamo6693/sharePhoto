@@ -1,8 +1,15 @@
+import { useContext } from "react";
 import "../styles/navbar.css";
+import { AuthContext } from "../context/authContext";
 
 const Navbar = () => {
+    const { loggedIn } = useContext(AuthContext);
+    console.log(loggedIn);
+
   return (
     <>
+    {loggedIn ?
+    
     <ul className="list-navbar">
 	<li className="list-item">
     <a class="shameless-plug" href="/">
@@ -14,7 +21,15 @@ const Navbar = () => {
     UPLOAD
     </a>
     </li>
-	<li className="list-item">
+    </ul>
+    : 
+    <ul className="list-navbar" >
+    <li className="list-item">
+    <a class="shameless-plug" href="/">
+        Home
+    </a>
+    </li>
+    <li className="list-item">
     <a class="shameless-plug" href="/singup">
     REGISTER
     </a>
@@ -24,7 +39,10 @@ const Navbar = () => {
     LOGIN 
     </li>
     </a>
-</ul>
+    </ul> 
+    
+    }
+    
 
   </>
   )

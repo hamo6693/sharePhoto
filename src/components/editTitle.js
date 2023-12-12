@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Input } from "@mui/material";
 import axios from "../config/axios";
 import { EDIT_TITLE, IMGUPLAOD_URL } from "../config/urls";
 import Navbar from "./Navbar";
 import { AuthContext } from "../context/authContext";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -102,8 +103,7 @@ function EditTitle() {
 
   return (
     <>
-      <Navbar></Navbar>
-      <h1>تعديل العنوان</h1>
+      <h1 style={{marginBottom:"15px",color:"lightgray",textAlign:"center"}}>تعديل العنوان</h1>
       <Card sx={{ width: 345 }}>
         <CardMedia sx={{ height: 140 }} image={image} title={title} />
         <CardContent>
@@ -113,14 +113,14 @@ function EditTitle() {
         </CardContent>
         <CardActions>
           <form onSubmit={handleSubmit}>
-            <input
+            <Input
+            className="input-filed"
               type="text"
-              value={title}
               placeholder="العنوان"
               onChange={handleTitleChange}
-            ></input>
-            <button type="submit">تعديل</button>
-            <button type="submit" onClick={() => {handlerDelete()}}>حذف</button>
+            ></Input>
+            <Button type="submit"  variant="contained" style={{marginRight:"1px"}}>تعديل</Button>
+            <Button type="submit" variant="outlined" color="error" onClick={() => {handlerDelete()}}>حذف</Button>
           </form>
         </CardActions>
       </Card>

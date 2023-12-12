@@ -1,11 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardMedia, Grid,CardActions,Typography,CardContent } from "@mui/material";
 import Navbar from "./components/Navbar";
 import axios from "./config/axios";
-import { Get_Image_url, LIKE_URL, Like } from "./config/urls";
-import { AuthContext } from "./context/authContext";
-import { FactCheck,HeartBroken } from "@mui/icons-material";
-import { Link, useParams } from "react-router-dom";
+import { Get_Image_url,Like } from "./config/urls";
+import { useParams } from "react-router-dom";
 import Button from '@mui/material/Button';
 
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -19,7 +17,6 @@ function Main() {
   const id = useParams()
 
   
-  /*const {jwt} = useContext(AuthContext)*/
 
   useEffect(() => {
     getImage();
@@ -75,11 +72,8 @@ function Main() {
         headers: {
           authorization: token,
         },
-        /*
-        body:JSON.stringify({
-          user:id
-      }),
-      */
+      
+      
         
     }).then(res => {
      
@@ -111,7 +105,6 @@ function Main() {
                         sx={{ height: 140 }}
                         image={img.image}
                         title={img.title}
-                      
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div">

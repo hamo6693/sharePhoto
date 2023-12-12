@@ -17,7 +17,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 function Img() {
-  const [image, setImage] = useState({ preview: "", data: "" });
+  const [image, setImage] = useState("");
+  const [preview, setPreview] = useState(null);
   const [status, setStatus] = useState("");
   const [title, setTitle] = useState("");
   const [editTitle, setEditTitle] = useState(false);
@@ -70,10 +71,13 @@ function Img() {
 
   //رقع الصورة
   const handleFileChange = (e) => {
+
+    
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
-      data: e.target.files[0],
     };
+    console.log(preview)
+
     setEdit(true);
     setImage(img);
   };
@@ -110,11 +114,10 @@ function Img() {
 
   return (
     <div className="App">
-      <Navbar></Navbar>
       <h1>Upload to server</h1>
       {image.preview && <img src={image.preview} width="100" height="100" />}
       {edit ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
           <div className="input-edit">
             <input
               type="text"
@@ -126,7 +129,7 @@ function Img() {
           </div>
         </form>
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form">
           <input
             accept="image/"
             type="file"

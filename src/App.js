@@ -49,6 +49,5 @@ function App() {
   );
 }
 //<Route path="/upload-image" element={loggedIn ? <Navigate to="/" /> : <Img />}/>
-//<Route path="/upload-image/:id" element={<Img />}  />
 
 export default App;
