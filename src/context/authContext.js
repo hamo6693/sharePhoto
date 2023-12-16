@@ -14,9 +14,9 @@ const AuthContextProvider = (props) => {
     
     const getAuthentcated = async () => {
         const token = localStorage.getItem("token",JSON.stringify());
-        //console.log(token);
-        if(token) {
-            setJwt(token)
+        const tokenstr = JSON.parse(token)
+        if(tokenstr) {
+            setJwt(tokenstr)
             setLoggedIn(true);
         }else{
             setLoggedIn(false)

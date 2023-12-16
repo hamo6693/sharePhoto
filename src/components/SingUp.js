@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-//import ReactDOM from 'react-dom';
-import "../styles/singup.css";
+import "../styles/App.css";
 import axios from "../config/axios";
 import { REGISTER_URL } from "../config/urls";
 import { useNavigate } from "react-router-dom";
-import { Input } from "@mui/material";
-import { Button, Form } from "react-bootstrap";
-import Alert from "react-bootstrap/Alert";
 import { Formik } from "formik";
 import * as yup from "yup";
 
