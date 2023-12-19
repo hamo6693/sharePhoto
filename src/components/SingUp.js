@@ -48,8 +48,13 @@ function REGISTER() {
     } catch (e) {
       console.log(e);
       console.log("ناكد من البيانات");
+      val()
     }
   };
+  
+  const val = () => {
+    alert("قم بالتاكد من البريد الالكتروني او كلمة المرور")
+  }
   return (
     <Formik
       initialValues={{
@@ -59,10 +64,10 @@ function REGISTER() {
         confPassword: null,
       }}
       validationSchema={validationSchema}
-      onSubmit={(values, { resetForm }) => {
+      onSubmit={(values) => {
         console.log(values);
         onSubmit(values);
-        resetForm({ values: "" });
+        
       }}
     >
       {(formikProps) => (
