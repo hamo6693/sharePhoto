@@ -31,8 +31,13 @@ function LogIn() {
         navigate("/upload-image");
       });
     } catch (e) {
+      if(e.response.status === 401) {
+        alert("البريد الالكتروني غير مسجل")
+      }else{
+      alert("خطا في البريد الالكتروني او كلمة المرور")
       console.log(e);
     }
+  }
   };
   return (
     <Formik
@@ -41,10 +46,10 @@ function LogIn() {
         password: null,
       }}
       validationSchema={validationSchema}
-      onSubmit={(values, { resetForm }) => {
+      onSubmit={(values) => {
         console.log(values);
         onSubmit(values);
-        resetForm({ values: "" });
+        
       }}
     >
       {(formikProps) => (

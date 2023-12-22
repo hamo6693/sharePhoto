@@ -11,6 +11,7 @@ function REGISTER() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
+
   const navigate = useNavigate();
 
   const validationSchema = yup.object({
@@ -32,29 +33,25 @@ function REGISTER() {
       .string()
       .nullable()
       .min(5, "less 5 letter")
-      .required("يجب ادخال كلمة المرور"),
+      .required("يجب ادخال كلمة المرور")
+      .test("match", "كلمة المرور غير مطابقة", function (confPassword) {
+        return confPassword === this.parent.password;
+      }),
   });
 
   const onSubmit = async (values) => {
-    if (password !== confPassword) {
-      alert("password Not Matc");
-    }
-
     try {
       await axios.post(REGISTER_URL, values).then((res) => {
         console.log(res);
+        alert("تم انشاء الحساب");
         navigate("/login");
       });
     } catch (e) {
+      alert("البريد المدخل مسجل مسبقا");
       console.log(e);
-      console.log("ناكد من البيانات");
-      val()
     }
   };
-  
-  const val = () => {
-    alert("قم بالتاكد من البريد الالكتروني او كلمة المرور")
-  }
+
   return (
     <Formik
       initialValues={{
@@ -67,7 +64,6 @@ function REGISTER() {
       onSubmit={(values) => {
         console.log(values);
         onSubmit(values);
-        
       }}
     >
       {(formikProps) => (
