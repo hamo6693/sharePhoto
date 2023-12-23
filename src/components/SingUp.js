@@ -11,6 +11,7 @@ function REGISTER() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
+  const [errors, setShowErrors] = useState("");
 
   const navigate = useNavigate();
 
@@ -47,7 +48,7 @@ function REGISTER() {
         navigate("/login");
       });
     } catch (e) {
-      alert("البريد المدخل مسجل مسبقا");
+      setShowErrors("البريد المدخل مسجل مسبقا")
       console.log(e);
     }
   };
@@ -96,6 +97,7 @@ function REGISTER() {
                 <label for="">Email</label>
                 <div className="worring">
                   {formikProps.touched.email && formikProps.errors.email}
+                  <p>{errors}</p>
                 </div>
               </div>
 

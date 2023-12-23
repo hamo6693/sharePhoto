@@ -1,4 +1,4 @@
-export const API_URL = "http://192.168.120.44:8000"
+export const API_URL = "http://192.168.43.185:8000"
 export const REGISTER_URL = "register"
 export const LOGIN_URL = "login"
 export const IMGUPLAOD_URL = "upload-image"
