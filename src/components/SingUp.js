@@ -17,19 +17,16 @@ function REGISTER() {
 
   const validationSchema = yup.object({
     name: yup.string().nullable().required("اسم المستخدم مطلوب"),
-
     email: yup
       .string()
       .nullable()
       .email(" البريد الالكتروني مطلوب")
       .required("البريد الالكتروني مطلوب"),
-
     password: yup
       .string()
       .nullable()
       .min(5, "less 5 letter")
       .required("يجب ادخال كلمة المرور"),
-
     confPassword: yup
       .string()
       .nullable()
@@ -48,7 +45,7 @@ function REGISTER() {
         navigate("/login");
       });
     } catch (e) {
-      setShowErrors("البريد المدخل مسجل مسبقا")
+      setShowErrors("البريد المدخل مسجل مسبقا");
       console.log(e);
     }
   };
@@ -85,7 +82,6 @@ function REGISTER() {
                   {formikProps.touched.name && formikProps.errors.name}
                 </div>
               </div>
-
               <div class="input-data">
                 <input
                   name="email"
@@ -100,7 +96,6 @@ function REGISTER() {
                   <p>{errors}</p>
                 </div>
               </div>
-
               <div class="input-data">
                 <input
                   name="password"
@@ -114,7 +109,6 @@ function REGISTER() {
                   {formikProps.touched.password && formikProps.errors.password}
                 </div>
               </div>
-
               <div class="input-data">
                 <input
                   name="confPassword"
