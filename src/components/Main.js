@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import Navbar from "./Navbar";
 import axios from "../config/axios";
-import { Get_Image_url, Like } from "../config/urls";
+import {  Get_Image_url, Like } from "../config/urls";
 import Button from "@mui/material/Button";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { AuthContext } from "../context/authContext";
@@ -27,6 +27,7 @@ function Main() {
   const getImage = async () => {
     setShowLoading(true);
     try {
+      
        await axios
         .get(Get_Image_url, {
           headers: {
@@ -68,8 +69,11 @@ function Main() {
     }
   };
 
+ 
+
   return (
     <>
+
       <Navbar></Navbar>
       {showLoading
         ? setShowLoading(false)
@@ -97,6 +101,15 @@ function Main() {
                         >
                           {img.title}
                         </Typography>
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                          style={{ color: "#ffffffe6" }}
+                        >
+                          {img.description}
+                        </Typography>
+                        
                       </CardContent>
                       <CardActions></CardActions>
                       <div style={{ display: "flex" }}>

@@ -18,6 +18,8 @@ function Img() {
   const [image, setImage] = useState("");
   const [preview, setPreview] = useState(null);
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  
   const { id } = useParams();
   const [post, setPost] = useState();
   const [showLoading, setShowLoading] = useState(false);
@@ -26,21 +28,28 @@ function Img() {
   const { jwt } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
+    const tokenValue = localStorage.getItem("token");
+    let token = JSON.parse(tokenValue);
+    
     try {
+      
       e.preventDefault();
       await axios
         .post(
           IMGUPLAOD_URL,
           {
-            base64: image.preview,
             title: title,
+            description:description,
+            
           },
 
           {
             headers: {
-              authorization: jwt,
+              authorization: token,
             },
-          }
+          },
+            
+
         )
 
         .then((res) => {
@@ -50,17 +59,22 @@ function Img() {
     } catch (e) {
       console.log(e);
     }
+  
+
   };
   //كتابة العنوان
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
-
+  const handleDescirptionChange = (e) => {
+    setDescription(e.target.value);
+  }
   //رقع الصورة
   const handleFileChange = (e) => {
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
     };
+    
 
     setEdit(true);
     setImage(img);
@@ -115,6 +129,12 @@ function Img() {
               placeholder="العنوان"
               onChange={handleTitleChange}
             ></input>
+            <input
+              type="text"
+              value={description}
+              placeholder="الوصف"
+              onChange={handleDescirptionChange}
+            ></input>
             <button type="submit">Submit</button>
           </div>
         </form>
@@ -147,6 +167,7 @@ function Img() {
                         image={img.image}
                         title={img.title}
                       />
+                  
                       <CardContent style={{ padding: "0px" }}>
                         <Typography
                           gutterBottom
@@ -155,7 +176,18 @@ function Img() {
                           color={"#ffffffe6"}
                         >
                           {img.title}
+                          
                         </Typography>
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                          color={"#ffffffe6"}
+                        >
+                          {img.description}
+                          
+                        </Typography>
+                        
                       </CardContent>
                       <CardActions>
                         <Link

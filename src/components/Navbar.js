@@ -1,10 +1,44 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../styles/navbar.css";
 import { AuthContext } from "../context/authContext";
+import { GETPROFILE } from "../config/urls";
+import axios from "../config/axios";
 
 const Navbar = () => {
-    const { loggedIn } = useContext(AuthContext);
+    const [nameUser, setNameUser ] = useState();
+    const { loggedIn,setLoggedIn } = useContext(AuthContext);
     console.log(loggedIn);
+
+    const logOut = async () => {
+         window.localStorage.removeItem("token")
+        setLoggedIn(false)
+    }
+
+    useEffect(() => {
+        getProfile()
+      },[])
+    
+      const getProfile = async () => {
+        try {
+          const tokenValue = localStorage.getItem("token");
+          let token = JSON.parse(tokenValue);
+           await axios
+            .get(GETPROFILE, {
+              headers: {
+                authorization: token,
+              },
+    
+              Image: Image,
+            })
+            .then((res) => {
+              console.log(res.data);
+              setNameUser(res.data.name);
+            });
+        } catch (e) {
+          console.log(e);
+        }
+      };
+   
 
   return (
     <>
@@ -21,6 +55,15 @@ const Navbar = () => {
     UPLOAD
     </a>
     </li>
+
+    <li className="list-item" onClick={() => logOut()}>
+    <a class="shameless-plug" href="/" >
+    تسجيل الخروج
+    </a>
+    </li>
+    <div>{nameUser}</div>
+
+    
     </ul>
     : 
     <ul className="list-navbar" >

@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 
 function EditTitle() {
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const { jwt } = useContext(AuthContext);
   const id = window.location.pathname.split("/")[2];
   const [image, setImage] = useState("");
@@ -28,6 +29,7 @@ function EditTitle() {
           EDIT_TITLE + "/" + id,
           {
             title: title,
+            description:description
           },
 
           {
@@ -51,6 +53,10 @@ function EditTitle() {
     setTitle(e.target.value);
     console.log(title);
   };
+  const handleDesciptionChange = (e) => {
+    setDescription(e.target.value);
+    console.log(description);
+  };
 
   useEffect(() => {
     getImage();
@@ -64,10 +70,12 @@ function EditTitle() {
             authorization: jwt,
           },
           title: title,
+          description:description
         })
         .then((res) => {
           setTitle(res.data.data.title);
           setImage(res.data.data.image);
+          setDescription(res.data.data.description);
         });
     } catch (e) {
       console.log(e);
@@ -105,6 +113,16 @@ function EditTitle() {
           >
             {title}
           </Typography>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            color={"blueviolet"}
+            fontWeight={"600"}
+            textAlign={"center"}
+          >
+            {description}
+          </Typography>
         </CardContent>
         <CardActions>
           <form onSubmit={handleSubmit}>
@@ -113,6 +131,12 @@ function EditTitle() {
               type="text"
               placeholder="العنوان"
               onChange={handleTitleChange}
+            ></Input>
+             <Input
+              className="input-filed"
+              type="text"
+              placeholder="الوصف"
+              onChange={handleDesciptionChange}
             ></Input>
             <Button
               type="submit"
