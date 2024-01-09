@@ -40,6 +40,7 @@ function Img() {
           {
             title: title,
             description:description,
+            base64: image.preview,
             
           },
 
