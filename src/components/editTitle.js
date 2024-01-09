@@ -16,6 +16,8 @@ import Typography from "@mui/material/Typography";
 function EditTitle() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [preview, setPreview] = useState(null);
+
   const { jwt } = useContext(AuthContext);
   const id = window.location.pathname.split("/")[2];
   const [image, setImage] = useState("");
@@ -29,7 +31,8 @@ function EditTitle() {
           EDIT_TITLE + "/" + id,
           {
             title: title,
-            description:description
+            description:description,
+            base64: image.preview,
           },
 
           {
@@ -57,6 +60,13 @@ function EditTitle() {
     setDescription(e.target.value);
     console.log(description);
   };
+  const handleFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+    };
+    setImage(img)
+  }
+  
 
   useEffect(() => {
     getImage();
@@ -94,7 +104,7 @@ function EditTitle() {
         console.log("تم الحذف");
       });
   };
-
+  
   return (
     <>
       <h1 style={{ marginBottom: "15px", color: "white", textAlign: "center" }}>
@@ -126,6 +136,14 @@ function EditTitle() {
         </CardContent>
         <CardActions>
           <form onSubmit={handleSubmit}>
+          {image.preview && <img src={image.preview} width="200" height="200" />}
+          <input
+            accept="image/"
+            type="file"
+            name="file"
+            onChange={handleFileChange}
+            alt={image.title}
+          ></input>
             <Input
               className="input-filed"
               type="text"

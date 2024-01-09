@@ -32,7 +32,8 @@ const Navbar = () => {
             })
             .then((res) => {
               console.log(res.data);
-              setNameUser(res.data.name);
+              setNameUser(res.data);
+              setLoggedIn(true)
             });
         } catch (e) {
           console.log(e);
@@ -58,10 +59,11 @@ const Navbar = () => {
 
     <li className="list-item" onClick={() => logOut()}>
     <a class="shameless-plug" href="/" >
-    تسجيل الخروج
+    logout
     </a>
-    </li>
     <div>{nameUser}</div>
+    </li>
+    
 
     
     </ul>

@@ -22,16 +22,19 @@ function Main() {
 
   useEffect(() => {
     getImage();
+    
   }, [likes]);
 
   const getImage = async () => {
     setShowLoading(true);
     try {
+      const tokenValue = localStorage.getItem("token");
+      let token = JSON.parse(tokenValue);
       
        await axios
         .get(Get_Image_url, {
           headers: {
-            authorization: jwt,
+            authorization: token,
           },
 
           Image: Image,
@@ -49,13 +52,15 @@ function Main() {
 
   const likePost = (id) => {
     try {
+      const tokenValue = localStorage.getItem("token");
+      let token = JSON.parse(tokenValue);
       axios
         .put(
           Like + "/" + id,
           { user: id },
           {
             headers: {
-              authorization: jwt,
+              authorization: token,
             },
           }
         )

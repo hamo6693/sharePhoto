@@ -27,12 +27,11 @@ function Img() {
   const navigate = useNavigate();
   const { jwt } = useContext(AuthContext);
 
+
   const handleSubmit = async (e) => {
     const tokenValue = localStorage.getItem("token");
     let token = JSON.parse(tokenValue);
-    
-    try {
-      
+    try {  
       e.preventDefault();
       await axios
         .post(
@@ -43,14 +42,13 @@ function Img() {
             base64: image.preview,
             
           },
-
+          
           {
             headers: {
               authorization: token,
             },
           },
-            
-
+          
         )
 
         .then((res) => {
@@ -63,6 +61,15 @@ function Img() {
   
 
   };
+
+  const validator = () => {
+    if (preview === null) {
+      alert("قم باختيار الصور")
+        handleSubmit();
+      } 
+    
+  };
+
   //كتابة العنوان
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -74,6 +81,7 @@ function Img() {
   const handleFileChange = (e) => {
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
+      
     };
     
 
@@ -140,7 +148,7 @@ function Img() {
           </div>
         </form>
       ) : (
-        <form onSubmit={handleSubmit} className="form">
+        <form onSubmit={validator} className="form">
           <input
             accept="image/"
             type="file"
