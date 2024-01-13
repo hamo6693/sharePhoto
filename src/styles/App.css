@@ -20,7 +20,7 @@ body{
     position: relative;
     }
     .form {
-    border:2px solid green;
+    /*border:2px solid green;*/
     padding: 30px;
     margin-bottom: 40px;
     }
@@ -181,4 +181,19 @@ form .form-row .textarea{
   .submit-btn .input-data{
     width: 40%!important;
   }
+}
+.textAreaEdit{
+  background-color: unset;
+    border: 1px solid black;
+    height: 54px;
+    width: 223px;
+    margin-left: 14px;
+    border-radius: 4px;
+    mix-blend-mode: multiply;
+    text-indent: 15px;
+}
+.btnshare{
+  margin-bottom: 28px !important;
+  padding: 5px !important;
+  margin-left: 5px !important;
 }

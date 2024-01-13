@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Grid } from "@mui/material";
+import { Button, Grid, Input, TextField } from "@mui/material";
 import axios from "../config/axios";
 import { IMGUPLAOD_URL } from "../config/urls";
 import { Get_Image_url } from "../config/urls";
@@ -13,6 +13,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
+import { CloudUpload, CloudUploadIcon } from "@mui/icons-material";
+import { styled } from '@mui/material/styles';
 
 function Img() {
   const [image, setImage] = useState("");
@@ -65,6 +67,9 @@ function Img() {
   const validator = () => {
     if (preview === null) {
       alert("قم باختيار الصور")
+      if(title === null && description === null) {
+        alert("قم بادخال البيانات")
+      }
         handleSubmit();
       } 
     
@@ -117,6 +122,17 @@ function Img() {
       setShowLoading(false);
     }
   };
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
 
   return (
     <div className="App">
@@ -132,31 +148,32 @@ function Img() {
       {edit ? (
         <form onSubmit={handleSubmit}>
           <div className="input-edit">
-            <input
+            <TextField
               type="text"
               value={title}
               placeholder="العنوان"
               onChange={handleTitleChange}
-            ></input>
-            <input
+              required
+              label="العنوان"
+            ></TextField>
+            <textarea
               type="text"
               value={description}
               placeholder="الوصف"
               onChange={handleDescirptionChange}
-            ></input>
-            <button type="submit">Submit</button>
+              required
+              className="textAreaEdit"
+            ></textarea>
+            <Button className="btnshare" type="submit" variant="contained">share</Button>
           </div>
         </form>
       ) : (
         <form onSubmit={validator} className="form">
-          <input
-            accept="image/"
-            type="file"
-            name="file"
-            onChange={handleFileChange}
-            alt={image.title}
-          ></input>
-          <button type="submit">Submit</button>
+
+      <Button component="label" variant="contained" startIcon={<CloudUpload />} alt={image.title} onChange={handleFileChange}>
+      Upload file
+      <VisuallyHiddenInput type="file" />
+    </Button>
         </form>
       )}
 

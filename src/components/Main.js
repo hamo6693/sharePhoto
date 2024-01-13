@@ -13,6 +13,7 @@ import {  Get_Image_url, Like } from "../config/urls";
 import Button from "@mui/material/Button";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { AuthContext } from "../context/authContext";
+import { Link } from "react-router-dom";
 
 function Main() {
   const [post, setPost] = useState();
@@ -92,11 +93,13 @@ function Main() {
                       style={{ backgroundColor: "#fff0" }}
                       className="card"
                     >
+                      <Link to={`/edit-title/${img._id}`}>
                       <CardMedia
                         sx={{ height: 230 }}
                         image={img.image}
                         title={img.title}
                       />
+                      </Link>
                       <CardContent>
                         <Typography
                           gutterBottom

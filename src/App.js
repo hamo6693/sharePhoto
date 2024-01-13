@@ -26,6 +26,7 @@ function App() {
 
       <Route path="/upload-image" element={<Img />} />
 
+
       <Route path="/edit-title/:id" element={<EditTitle />} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
