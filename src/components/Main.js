@@ -15,6 +15,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { AuthContext } from "../context/authContext";
 import { Link } from "react-router-dom";
 
+
 function Main() {
   const [post, setPost] = useState();
   const [showLoading, setShowLoading] = useState(false);

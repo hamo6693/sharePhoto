@@ -13,7 +13,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-import { CloudUpload, CloudUploadIcon } from "@mui/icons-material";
+import { CloudUpload } from "@mui/icons-material";
 import { styled } from '@mui/material/styles';
 
 function Img() {

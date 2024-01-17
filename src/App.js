@@ -7,6 +7,7 @@ import Main from "./components/Main";
 import Img from "./components/ImageUpload";
 import REGISTER from "./components/SingUp";
 import EditTitle from "./components/editTitle";
+import Profile from "./components/Profile";
 
 function App() {
   const { loggedIn } = useContext(AuthContext);
@@ -25,6 +26,8 @@ function App() {
       )}
 
       <Route path="/upload-image" element={<Img />} />
+
+      <Route path="/update-profile" element={<Profile />} />
 
 
       <Route path="/edit-title/:id" element={<EditTitle />} />

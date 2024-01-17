@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useState } from "react";
-import { Input } from "@mui/material";
+import { Input, styled } from "@mui/material";
 import axios from "../config/axios";
 import { EDIT_TITLE, IMGUPLAOD_URL } from "../config/urls";
 import { AuthContext } from "../context/authContext";
@@ -12,6 +12,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { CloudUpload } from "@mui/icons-material";
+
 
 function EditTitle() {
   const [title, setTitle] = useState("");
@@ -24,6 +26,8 @@ function EditTitle() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    const tokenValue = localStorage.getItem("token");
+    let token = JSON.parse(tokenValue);
     try {
       e.preventDefault();
       await axios
@@ -37,7 +41,7 @@ function EditTitle() {
 
           {
             headers: {
-              authorization: jwt,
+              authorization: token,
             },
           }
         )
@@ -73,11 +77,13 @@ function EditTitle() {
   }, []);
 
   const getImage = async () => {
+    const tokenValue = localStorage.getItem("token");
+    let token = JSON.parse(tokenValue);
     try {
       await axios
         .get(EDIT_TITLE + "/" + id, {
           headers: {
-            authorization: jwt,
+            authorization: token,
           },
           title: title,
           description:description
@@ -93,10 +99,12 @@ function EditTitle() {
   };
 
   const handlerDelete = async (req, res) => {
+    const tokenValue = localStorage.getItem("token");
+    let token = JSON.parse(tokenValue);
     await axios
       .delete(IMGUPLAOD_URL + "/" + id, {
         headers: {
-          authorization: jwt,
+          authorization: token,
         },
         id: id,
       })
@@ -104,6 +112,17 @@ function EditTitle() {
         console.log("تم الحذف");
       });
   };
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
   
   return (
     <>
@@ -137,13 +156,10 @@ function EditTitle() {
         <CardActions>
           <form onSubmit={handleSubmit}>
           {image.preview && <img src={image.preview} width="200" height="200" />}
-          <input
-            accept="image/"
-            type="file"
-            name="file"
-            onChange={handleFileChange}
-            alt={image.title}
-          ></input>
+          <Button component="label" variant="contained" startIcon={<CloudUpload />} style={{display:"flex"}} alt={image.title} onChange={handleFileChange}>
+      Upload file
+      <VisuallyHiddenInput type="file" />
+      </Button>
             <Input
               className="input-filed"
               type="text"

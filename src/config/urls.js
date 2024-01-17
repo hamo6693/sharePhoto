@@ -5,7 +5,11 @@ export const IMGUPLAOD_URL = "upload-image"
 export const Get_Image_url = "get-image"
 export const EDIT_TITLE = "edit-title"
 export const Like = "like"
-export const GETPROFILE = "profile"
+export const PROFILE = "profile"
+export const GET_PROFILE = "get-profile"
+
+
+export const UPDATE_PROFILE = "update-profile"
 
 
 

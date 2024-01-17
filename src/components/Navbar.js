@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../styles/navbar.css";
 import { AuthContext } from "../context/authContext";
-import { GETPROFILE } from "../config/urls";
+import { GETPROFILE, PROFILE } from "../config/urls";
 import axios from "../config/axios";
+import Profile from "../components/Profile"
 
 import Button from '@mui/material/Button';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -12,6 +13,7 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
+import { Link } from "@mui/material";
 
 const Navbar = () => {
     const [nameUser, setNameUser ] = useState();
@@ -66,7 +68,7 @@ const Navbar = () => {
           const tokenValue = localStorage.getItem("token");
           let token = JSON.parse(tokenValue);
            await axios
-            .get(GETPROFILE, {
+            .get(PROFILE, {
               headers: {
                 authorization: token,
               },
@@ -115,6 +117,8 @@ const Navbar = () => {
          onClick={handleToggle}
         
        >
+        <Stack direction="row" spacing={2}>
+      </Stack>
           <div  className="shameless-plug" style={{fontSize:"1rem"}}>{nameUser}</div>
        </Button>
        <Popper
@@ -141,7 +145,10 @@ const Navbar = () => {
                    aria-labelledby="composition-button"
                    onKeyDown={handleListKeyDown}
                  >
-                   <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <Link href="/update-profile" underline="none">
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  </Link>
+                   
                    <MenuItem onClick={logOut}>Logout</MenuItem>
                  </MenuList>
                </ClickAwayListener>
