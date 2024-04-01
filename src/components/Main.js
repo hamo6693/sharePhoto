@@ -20,7 +20,7 @@ function Main() {
   const [post, setPost] = useState();
   const [showLoading, setShowLoading] = useState(false);
   const [likes, setLikes] = useState(0);
-  const { loggedIn, jwt } = useContext(AuthContext);
+  const { loggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     getImage();
@@ -85,8 +85,12 @@ function Main() {
       {showLoading
         ? setShowLoading(false)
         : post && (
+          
             <Grid container>
+
               {post.data.map((img) => {
+                
+                
                 return (
                   <>
                     <Card
@@ -142,6 +146,7 @@ function Main() {
                     </Card>
                   </>
                 );
+
               })}
             </Grid>
           )}
